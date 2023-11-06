@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Вставай світло є!</string>
+    <string name="about">Цей додаток стане в нагоді, коли у вас вдома немає електрики, а ви хочете спати і чекати, поки воно з’явиться</string>
+    <string name="start_button">Дрімати!</string>
+    <string name="charger_instruction">Ви можете завести цей будильник         1. Вмикніть зарядку у розетку, якою зазвичай користуєтесь         2. Вставте кабель до телефону         3. Натисніть «Подрімати!»         4. Насолоджуйтеся спокійним сном         5. Програма розбудить Вас, коли дадуть світло</string>
+    <string name="label">Вставай світло є!</string>
+    <string name="instruction_button">Інструкція</string>
+    <string name="action_settings">Налаштування</string>
+    <string name="language">EN</string>
+    <string name="charger_button">за зарядкою</string>
+    <string name="wifi_button">за wifi</string>
+    <string name="cancel">Відмінити</string>
+</resources>
