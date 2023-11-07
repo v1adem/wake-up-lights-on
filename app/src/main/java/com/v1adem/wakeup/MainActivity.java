@@ -37,6 +37,7 @@ public class MainActivity extends AppCompat implements ChargingStatusListener{
         receiver = new ChargingReceiver(this);
         IntentFilter filter = new IntentFilter(Intent.ACTION_POWER_CONNECTED);
         mediaPlayer = MediaPlayer.create(this, R.raw.alarm);
+        mediaPlayer.setVolume(100, 100);
 
         Button startButton = findViewById(R.id.start_button);
         startButton.setOnClickListener(v -> {
