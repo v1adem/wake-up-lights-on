@@ -4,7 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="label">Wake up, lights on!</string>
     <string name="instruction_button">Instruction</string>
-    <string name="start_button">Let`s&#xA;rest!</string>
+    <string name="start_button">Let`s\nrest!</string>
     <string name="language">UA</string>
     <string name="charger_button">by charger</string>
     <string name="wifi_button">by wifi</string>
@@ -13,12 +13,27 @@
     <string name="logo_description">This is logo</string>
 
     <string name="charger_instruction">
-        So you can set up this alarm
-        1. Connect the charger to the outlet from which you usually charge the phone
-        2. Connect the charger cable to the phone
-        3. Clicking "Let's rest"
-        4. Enjoy a restful sleep
-        5. The app will wake you up when the power comes on
+        <data>So you can set up this alarm:\n\n
+
+        1. Connect the charger to the outlet from which you usually charge the phone\n
+        2. Connect the charger cable to the phone\n
+        3. Clicking "Let's rest"\n
+        4. Enjoy a restful sleep\n
+        5. The app will wake you up when the power comes on\n
+        </data>
+
+    </string>
+    <string name="wifi_instruction">
+        <data>
+        So you can set up this alarm:\n\n
+
+        1. Turn on the WIFI\n
+        2. Clicking "Let's rest"\n
+        3. Enjoy a restful sleep\n
+        4. The app will wake you up when the power comes on\n\n
+
+        This variation could be useful if your phone is charging by powerbank
+        </data>
     </string>
 
     <string name="about">
