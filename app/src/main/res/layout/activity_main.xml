@@ -10,8 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/footerLayout"
-        android:layout_width="408dp"
-        android:layout_height="86dp"
+        android:layout_width="393dp"
+        android:layout_height="87dp"
         android:background="#26000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,12 +47,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerLayout"
-        android:layout_width="409dp"
-        android:layout_height="96dp"
+        android:layout_width="393dp"
+        android:layout_height="94dp"
         android:background="@color/dark_violeta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/textView"
