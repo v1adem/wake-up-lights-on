@@ -10,5 +10,6 @@
     <string name="language">EN</string>
     <string name="charger_button">за зарядкою</string>
     <string name="wifi_button">за wifi</string>
-    <string name="cancel">Відмінити</string>
+    <string name="cancel_button">Відмінити</string>
+    <string name="logo_description">Це лого</string>
 </resources>

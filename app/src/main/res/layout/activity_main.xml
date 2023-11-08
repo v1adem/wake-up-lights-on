@@ -77,12 +77,29 @@
         android:checkable="true"
         android:text="@string/start_button"
         android:textSize="48sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/footerLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerLayout"
         app:layout_constraintVertical_bias="0.847" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:backgroundTint="#343434"
+        android:checkable="true"
+        android:text="@string/start_button"
+        android:textSize="48sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/footerLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.849" />
 
     <Button
         android:id="@+id/language_button"
@@ -119,6 +136,7 @@
         android:layout_width="166dp"
         android:layout_height="169dp"
         android:layout_marginTop="4dp"
+        android:contentDescription="@string/logo_description"
         app:layout_constraintBottom_toTopOf="@+id/instruction_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"

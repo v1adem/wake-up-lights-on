@@ -8,7 +8,9 @@
     <string name="language">UA</string>
     <string name="charger_button">by charger</string>
     <string name="wifi_button">by wifi</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel_button">Cancel</string>
+
+    <string name="logo_description">This is logo</string>
 
     <string name="charger_instruction">
         So you can set up this alarm

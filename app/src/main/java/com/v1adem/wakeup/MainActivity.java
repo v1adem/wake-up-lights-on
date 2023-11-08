@@ -5,6 +5,7 @@ import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompat implements ChargingStatusListener{
@@ -16,6 +17,28 @@ public class MainActivity extends AppCompat implements ChargingStatusListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Managing the main logic for start_button
+        receiver = new ChargingReceiver(this);
+        IntentFilter filter = new IntentFilter(Intent.ACTION_POWER_CONNECTED);
+        mediaPlayer = MediaPlayer.create(this, R.raw.alarm);
+        mediaPlayer.setVolume(100, 100);
+
+        Button startButton = findViewById(R.id.start_button);
+        Button cancelButton = findViewById(R.id.cancel_button);
+        startButton.setOnClickListener(v -> {
+            startButton.setVisibility(View.INVISIBLE);
+            cancelButton.setVisibility(View.VISIBLE);
+
+            registerReceiver(receiver, filter);
+        });
+        cancelButton.setOnClickListener(v -> {
+            startButton.setVisibility(View.VISIBLE);
+            cancelButton.setVisibility(View.INVISIBLE);
+
+            unregisterReceiver(receiver); // Unregister the receiver to avoid memory leaks
+            mediaPlayer.stop();
+        });
 
         // Managing language changing
         languageManager = new LanguageManager(this);
@@ -33,25 +56,7 @@ public class MainActivity extends AppCompat implements ChargingStatusListener{
         // Managing the showing instruction
         // TODO
 
-        // Managing the main logic for start_button
-        receiver = new ChargingReceiver(this);
-        IntentFilter filter = new IntentFilter(Intent.ACTION_POWER_CONNECTED);
-        mediaPlayer = MediaPlayer.create(this, R.raw.alarm);
-        mediaPlayer.setVolume(100, 100);
 
-        Button startButton = findViewById(R.id.start_button);
-        startButton.setOnClickListener(v -> {
-            if (startButton.getText().toString().equals(this.getString(R.string.start_button))) {
-                startButton.setText(R.string.cancel);
-
-                registerReceiver(receiver, filter);
-            } else {
-                startButton.setText(R.string.start_button);
-
-                unregisterReceiver(receiver); // Unregister the receiver to avoid memory leaks
-                mediaPlayer.stop();
-            }
-        });
     }
 
     @Override
