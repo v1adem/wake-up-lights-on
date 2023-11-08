@@ -4,26 +4,25 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
-
-public class MainActivity extends AppCompat implements ChargingStatusListener{
+public class WifiActivity extends AppCompat implements WifiStatusListener{
     private LanguageManager languageManager;
-    private ChargingReceiver receiver;
-    private  MediaPlayer mediaPlayer;
-
+    private WifiReceiver receiver;
+    private MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_wifi);
 
-        // Managing the main logic for start_button
-        receiver = new ChargingReceiver(this);
-        IntentFilter filter = new IntentFilter(Intent.ACTION_POWER_CONNECTED);
+        // Managing wifi receiving
+        receiver = new WifiReceiver(this);
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         mediaPlayer = MediaPlayer.create(this, R.raw.alarm);
         mediaPlayer.setVolume(100, 100);
 
@@ -56,9 +55,15 @@ public class MainActivity extends AppCompat implements ChargingStatusListener{
             Log.d("BUTTONS", "User changed language");
         });
 
+        // Managing type of electricity receiving
+        findViewById(R.id.byCharger_button).setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(),ChargerActivity.class);
+            startActivity(i);
+        });
+
         // Managing the showing instruction
         LayoutInflater li = LayoutInflater.from(this);
-        View promptsView = li.inflate(R.layout.acticity_instruction, null);
+        View promptsView = li.inflate(R.layout.activity_wifi_instruction, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
         alertDialogBuilder.setView(promptsView);
@@ -73,8 +78,8 @@ public class MainActivity extends AppCompat implements ChargingStatusListener{
     }
 
     @Override
-    public void onChargingStatusChanged(boolean isCharging) {
-        if (isCharging) {
+    public void onWifiStatusChanged(boolean isWifi) {
+        if (isWifi) {
             // Device is charging
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
