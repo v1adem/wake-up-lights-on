@@ -15,11 +15,20 @@ public class ChargerActivity extends AppCompat implements ChargingStatusListener
     private LanguageManager languageManager;
     private ChargingReceiver receiver;
     private  MediaPlayer mediaPlayer;
+    private boolean receiverActive = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charger);
+
+        Button startButton = findViewById(R.id.start_button);
+        Button cancelButton = findViewById(R.id.cancel_button);
+        Button languageButton = findViewById(R.id.language_button);
+        Button byWifiButton = findViewById(R.id.byWifi_button);
+        Button instructionButton = findViewById(R.id.instruction_button);
+
 
         // Managing the main logic for start_button
         receiver = new ChargingReceiver(this);
@@ -27,25 +36,32 @@ public class ChargerActivity extends AppCompat implements ChargingStatusListener
         mediaPlayer = MediaPlayer.create(this, R.raw.alarm);
         mediaPlayer.setVolume(100, 100);
 
-        Button startButton = findViewById(R.id.start_button);
-        Button cancelButton = findViewById(R.id.cancel_button);
         startButton.setOnClickListener(v -> {
             startButton.setVisibility(View.INVISIBLE);
             cancelButton.setVisibility(View.VISIBLE);
 
+            languageButton.setEnabled(false);
+            byWifiButton.setEnabled(false);
+
             registerReceiver(receiver, filter);
+            receiverActive = true;
         });
         cancelButton.setOnClickListener(v -> {
             startButton.setVisibility(View.VISIBLE);
             cancelButton.setVisibility(View.INVISIBLE);
 
+            languageButton.setEnabled(true);
+            byWifiButton.setEnabled(true);
+
             unregisterReceiver(receiver); // Unregister the receiver to avoid memory leaks
+            receiverActive = false;
             mediaPlayer.stop();
+            recreate();
         });
 
         // Managing language changing
         languageManager = new LanguageManager(this);
-        findViewById(R.id.language_button).setOnClickListener(v -> {
+        languageButton.setOnClickListener(v -> {
             if (languageManager.getLang().equals("en-US")) {
                 languageManager.updateResource("uk");
             } else {
@@ -57,8 +73,11 @@ public class ChargerActivity extends AppCompat implements ChargingStatusListener
         });
 
         // Managing type of electricity receiving
-        findViewById(R.id.byWifi_button).setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(),WifiActivity.class);
+        byWifiButton.setOnClickListener(v -> {
+            if (receiverActive) {
+                unregisterReceiver(receiver);
+            }
+            Intent i = new Intent(getApplicationContext(), WifiActivity.class);
             startActivity(i);
         });
 
@@ -69,10 +88,10 @@ public class ChargerActivity extends AppCompat implements ChargingStatusListener
 
         alertDialogBuilder.setView(promptsView);
 
-        // create alert dialog
+        // Instruction dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
 
-        findViewById(R.id.instruction_button).setOnClickListener(v -> {
+        instructionButton.setOnClickListener(v -> {
             alertDialog.show();
             Log.d("BUTTONS", "User opened instruction");
         });
@@ -85,9 +104,14 @@ public class ChargerActivity extends AppCompat implements ChargingStatusListener
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
             Log.d("ChargingStatus", "Device is charging");
-        } else {
-            // Device is not charging
-            Log.d("ChargingStatus", "Device is not charging");
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (receiverActive) {
+            unregisterReceiver(receiver);
         }
     }
 }

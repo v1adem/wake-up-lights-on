@@ -25,6 +25,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".WifiActivity" />
+        <receiver android:name=".ChargingReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".WifiReceiver"
+            android:exported="true">
+        </receiver>
     </application>
 
 
